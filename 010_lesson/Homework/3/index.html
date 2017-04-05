@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3</title>
+</head>
+<body>
+a: <input type="text" id="a">
+b: <input type="text" id="b">
+<input type="button" id="btn" value="Отправить данные!">
+<div id="output"></div>
+
+<script>
+    window.onload = function () {
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            var a = document.getElementById('a').value;
+            var b = document.getElementById('b').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'CalcHandler.ashx');
+
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send('a=' + a + '&b=' + b);
+            xhr.onload = function () {
+                var div = document.getElementById('output');
+                div.innerHTML += xhr.responseText + '<br/>';
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HomeWork #10.1</title>
+</head>
+<body>
+1. <span id="result"></span><br>
+2. <span id="result2"></span>
+<script>
+    window.onload = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "pages/page1.html");
+            xhr.timeout = 20000;
+
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open("GET", "pages/page2.html");
+            xhr2.timeout = 20000;
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        document.getElementById("result").innerHTML += xhr.responseText;
+                    } else {
+                        document.getElementById("result").innerHTML = "Error";
+                    }
+                }
+            };
+            xhr2.onreadystatechange = function () {
+                if (xhr2.readyState == 4) {
+                    if (xhr2.status == 200) {
+                        document.getElementById("result2").innerHTML += xhr2.responseText;
+                    } else {
+                        document.getElementById("result2").innerHTML = "Error";
+                    }
+                }
+            };
+            xhr.send();
+            xhr2.send();
+
+            xhr.ontimeout = function () {
+                xhr.abort();
+                alert('запрос превысил максимальное время');
+            }
+            xhr2.ontimeout = function () {
+                xhr2.abort();
+                alert('запрос превысил максимальное время');
+            }
+
+    }
+</script>
+</body>
+</html>
